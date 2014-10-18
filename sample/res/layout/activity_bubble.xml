@@ -9,8 +9,17 @@
     tools:context="com.habzy.image.bubble.sample.BubbleActivity" >
 
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <!--
+         <com.habzy.image.bubble.BubbleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv"
+        android:src="@drawable/source_pick_1" />
+    -->
 
 </RelativeLayout>
