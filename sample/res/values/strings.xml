@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Bubble Image</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Bubble!</string>
     <string name="action_settings">Settings</string>
 
 </resources>
