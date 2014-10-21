@@ -4,6 +4,12 @@
 package com.habzy.image.bubble;
 
 public class BubbleParams {
+    public static final int MAX_PIX = 360;
+    public static final int MIN_PIX = 180;
+
+    public int maxPix = MAX_PIX;
+    public int minPix = MIN_PIX;
+
     public int bubble_top_left;
     public int bubble_top_right;
     public int bubble_bottom_left;

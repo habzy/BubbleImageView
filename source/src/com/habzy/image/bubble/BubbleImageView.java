@@ -20,8 +20,6 @@ import android.widget.ImageView;
 public class BubbleImageView extends ImageView {
 
     private Context mContext;
-    private int mMaxPix = 360;
-    private int mMinPix = 180;
     private BubbleParams mParam;
 
     public BubbleImageView(Context context) {
@@ -49,24 +47,26 @@ public class BubbleImageView extends ImageView {
         // Get bitmap from ImageView and store into 'original'
         int image_width = original.getWidth();
         int image_height = original.getHeight();
+        int maxPix = null != mParam ? mParam.maxPix : BubbleParams.MAX_PIX;
+        int minPix = null != mParam ? mParam.minPix : BubbleParams.MIN_PIX;
         if (image_width > image_height) {
-            if (image_width > mMaxPix) {
+            if (image_width > maxPix) {
                 int temp = image_width;
-                image_width = mMaxPix;
+                image_width = maxPix;
                 image_height = image_height * image_width / temp;
-            } else if (image_width < mMinPix) {
+            } else if (image_width < minPix) {
                 int temp = image_width;
-                image_width = mMinPix;
+                image_width = minPix;
                 image_height = image_height * image_width / temp;
             }
         } else {
-            if (image_height > mMaxPix) {
+            if (image_height > maxPix) {
                 int temp = image_height;
-                image_height = mMaxPix;
+                image_height = maxPix;
                 image_width = image_width * image_height / temp;
-            } else if (image_height < mMinPix) {
+            } else if (image_height < minPix) {
                 int temp = image_height;
-                image_height = mMinPix;
+                image_height = minPix;
                 image_width = image_width * image_height / temp;
             }
         }
