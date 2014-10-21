@@ -1,19 +1,71 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
 
-    <com.habzy.image.bubble.BubbleImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_below="@id/tv"
-        android:src="@drawable/source_pick_1" />
+    <RelativeLayout
+        android:id="@+id/image_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-</RelativeLayout>
+        <com.habzy.image.bubble.BubbleImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/source_pick_1" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/image_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.habzy.image.bubble.BubbleImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/source_pick_2" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/image_layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.habzy.image.bubble.BubbleImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/source_pick_3" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/image_layout_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.habzy.image.bubble.BubbleImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/source_pick_4" />
+    </RelativeLayout>
+
+</LinearLayout>
