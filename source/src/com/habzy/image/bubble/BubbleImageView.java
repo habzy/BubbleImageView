@@ -22,6 +22,7 @@ public class BubbleImageView extends ImageView {
     private Context mContext;
     private int mMaxPix = 360;
     private int mMinPix = 180;
+    private BubbleParams mParam;
 
     public BubbleImageView(Context context) {
         super(context);
@@ -87,13 +88,15 @@ public class BubbleImageView extends ImageView {
         mCanvas.drawBitmap(original_scaled, 0, 0, null);
 
         Bitmap bubble_TL =
-                BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bubble_top_left);
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_top_left : R.drawable.bubble_top_left);
         Rect src_TL = new Rect(0, 0, bubble_TL.getWidth(), bubble_TL.getHeight());
         Rect dst_TL = new Rect(0, 0, bubble_TL.getWidth(), bubble_TL.getHeight());
         mCanvas.drawBitmap(bubble_TL, src_TL, dst_TL, paint);
 
         Bitmap bubble_BL =
-                BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bubble_bottom_left);
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_bottom_left : R.drawable.bubble_bottom_left);
         Rect src_BL = new Rect(0, 0, bubble_BL.getWidth(), bubble_BL.getHeight());
         Rect dst_BL =
                 new Rect(0, image_height - bubble_BL.getHeight(), bubble_BL.getWidth(),
@@ -101,7 +104,8 @@ public class BubbleImageView extends ImageView {
         mCanvas.drawBitmap(bubble_BL, src_BL, dst_BL, paint);
 
         Bitmap bubble_L =
-                BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bubble_line_left);
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_left : R.drawable.bubble_left);
         Rect src_left = new Rect(0, 0, bubble_L.getWidth(), bubble_L.getHeight());
         Rect dst_left =
                 new Rect(0, bubble_TL.getHeight(), bubble_L.getWidth(), image_height
@@ -109,32 +113,44 @@ public class BubbleImageView extends ImageView {
         mCanvas.drawBitmap(bubble_L, src_left, dst_left, paint);
 
         Bitmap bubble_TR =
-                BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bubble_top_right);
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_top_right : R.drawable.bubble_top_right);
         Rect src_TR = new Rect(0, 0, bubble_TR.getWidth(), bubble_TR.getHeight());
         Rect dst_TR =
                 new Rect(image_width - bubble_TR.getWidth(), 0, image_width, bubble_TR.getHeight());
         mCanvas.drawBitmap(bubble_TR, src_TR, dst_TR, paint);
 
         Bitmap bubble_BR =
-                BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bubble_bottom_right);
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_bottom_right
+                                : R.drawable.bubble_bottom_right);
         Rect src_BR = new Rect(0, 0, bubble_BR.getWidth(), bubble_BR.getHeight());
         Rect dst_BR =
                 new Rect(image_width - bubble_BR.getWidth(), image_height - bubble_BR.getHeight(),
                         image_width, image_height);
         mCanvas.drawBitmap(bubble_BR, src_BR, dst_BR, paint);
 
+        Bitmap bubble_R =
+                BitmapFactory.decodeResource(mContext.getResources(),
+                        null != mParam ? mParam.bubble_right : R.drawable.bubble_right);
+        Rect src_right = new Rect(0, 0, bubble_R.getWidth(), bubble_R.getHeight());
+        Rect dst_right =
+                new Rect(image_width - bubble_R.getWidth(), bubble_TR.getHeight(), image_width,
+                        image_height - bubble_BR.getHeight());
+        mCanvas.drawBitmap(bubble_R, src_right, dst_right, paint);
+
         // Draw border
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         Bitmap border_TL =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_top_left);
+                        null != mParam ? mParam.border_top_left : R.drawable.border_top_left);
         Rect border_src = new Rect(0, 0, border_TL.getWidth(), border_TL.getHeight());
         Rect image_dst = new Rect(0, 0, border_TL.getWidth(), border_TL.getHeight());
         mCanvas.drawBitmap(border_TL, border_src, image_dst, paint);
 
         Bitmap border_BL =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_bottom_left);
+                        null != mParam ? mParam.border_bottom_left : R.drawable.border_bottom_left);
         Rect border_src_BL = new Rect(0, 0, border_BL.getWidth(), border_BL.getHeight());
         Rect border_dst_BL =
                 new Rect(0, image_height - border_BL.getHeight(), border_BL.getWidth(),
@@ -143,7 +159,7 @@ public class BubbleImageView extends ImageView {
 
         Bitmap border_Line_L =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_line_left);
+                        null != mParam ? mParam.border_left : R.drawable.border_left);
         Rect border_src_left = new Rect(0, 0, border_Line_L.getWidth(), border_Line_L.getHeight());
         Rect border_dst_left =
                 new Rect(0, border_TL.getHeight(), border_Line_L.getWidth(), image_height
@@ -152,7 +168,7 @@ public class BubbleImageView extends ImageView {
 
         Bitmap border_TR =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_top_right);
+                        null != mParam ? mParam.border_top_right : R.drawable.border_top_right);
         Rect border_src_TR = new Rect(0, 0, bubble_TR.getWidth(), bubble_TR.getHeight());
         Rect border_dst_TR =
                 new Rect(image_width - border_TR.getWidth(), 0, image_width, border_TR.getHeight());
@@ -160,7 +176,8 @@ public class BubbleImageView extends ImageView {
 
         Bitmap border_BR =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_bottom_right);
+                        null != mParam ? mParam.border_bottom_right
+                                : R.drawable.border_bottom_right);
         Rect border_src_BR = new Rect(0, 0, bubble_BR.getWidth(), bubble_BR.getHeight());
         Rect border_dst_BR =
                 new Rect(image_width - border_BR.getWidth(), image_height - border_BR.getHeight(),
@@ -169,7 +186,7 @@ public class BubbleImageView extends ImageView {
 
         Bitmap border_Line_R =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_line_right);
+                        null != mParam ? mParam.border_right : R.drawable.border_right);
         Rect border_src_Right = new Rect(0, 0, border_Line_R.getWidth(), border_Line_R.getHeight());
         Rect border_dst_Rignt =
                 new Rect(image_width - border_Line_R.getWidth(), border_TR.getHeight(),
@@ -178,7 +195,7 @@ public class BubbleImageView extends ImageView {
 
         Bitmap border_Line_TB =
                 BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.border_line_topbottom);
+                        null != mParam ? mParam.border_top : R.drawable.border_topbottom);
         Rect border_src_tb = new Rect(0, 0, border_Line_TB.getWidth(), border_Line_TB.getHeight());
         Rect border_dst_top =
                 new Rect(border_TL.getWidth(), 0, image_width - border_TR.getWidth(),
@@ -213,6 +230,10 @@ public class BubbleImageView extends ImageView {
         Drawable drawable = mContext.getResources().getDrawable(resId);
         Bitmap result = makeMaskImageScaleFit(((BitmapDrawable) drawable).getBitmap());
         setImageBitmap(result);
+    }
+
+    public void setParam(BubbleParams param) {
+        this.mParam = param;
     }
 
 }
