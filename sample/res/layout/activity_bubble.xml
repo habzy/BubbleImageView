@@ -68,4 +68,20 @@
             android:src="@drawable/source_pick_4" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/image_layout_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.habzy.image.bubble.BubbleImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/source_pick_5" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -23,7 +24,8 @@ public class BubbleImageView extends ImageView {
     private int mMinPix = 180;
 
     public BubbleImageView(Context context) {
-        this(context, null);
+        super(context);
+        mContext = context;
     }
 
     public BubbleImageView(Context context, AttributeSet attrs) {
@@ -33,14 +35,17 @@ public class BubbleImageView extends ImageView {
     public BubbleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
-        makeMaskImageScaleFit();
+        Bitmap original = ((BitmapDrawable) this.getDrawable()).getBitmap();
+        Bitmap result = makeMaskImageScaleFit(original);
+        // Set imageView to 'result' bitmap
+        Drawable drawable = new BitmapDrawable(mContext.getResources(), result);
+        super.setImageDrawable(drawable);
     }
 
     // Method of creating mask runtime
-    public void makeMaskImageScaleFit() {
+    public Bitmap makeMaskImageScaleFit(Bitmap original) {
 
         // Get bitmap from ImageView and store into 'original'
-        Bitmap original = ((BitmapDrawable) this.getDrawable()).getBitmap();
         int image_width = original.getWidth();
         int image_height = original.getHeight();
         if (image_width > image_height) {
@@ -68,14 +73,16 @@ public class BubbleImageView extends ImageView {
         // Scale that bitmap
         Bitmap original_scaled =
                 Bitmap.createScaledBitmap(original, image_width, image_height, false);
-        this.setImageBitmap(original_scaled);
+        Drawable drawable = new BitmapDrawable(mContext.getResources(), original_scaled);
+        super.setImageDrawable(drawable);
 
         // Create result bitmap
         Bitmap result = Bitmap.createBitmap(image_width, image_height, Config.ARGB_8888);
 
-        // Perform the bubble
         Canvas mCanvas = new Canvas(result);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        // Perform the bubble
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
         mCanvas.drawBitmap(original_scaled, 0, 0, null);
 
@@ -84,7 +91,6 @@ public class BubbleImageView extends ImageView {
         Rect src_TL = new Rect(0, 0, bubble_TL.getWidth(), bubble_TL.getHeight());
         Rect dst_TL = new Rect(0, 0, bubble_TL.getWidth(), bubble_TL.getHeight());
         mCanvas.drawBitmap(bubble_TL, src_TL, dst_TL, paint);
-
 
         Bitmap bubble_BL =
                 BitmapFactory.decodeResource(mContext.getResources(), R.drawable.fri_bottom_left);
@@ -117,7 +123,6 @@ public class BubbleImageView extends ImageView {
                         image_width, image_height);
         mCanvas.drawBitmap(bubble_BR, src_BR, dst_BR, paint);
 
-
         // Draw border
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         Bitmap border_TL =
@@ -144,7 +149,6 @@ public class BubbleImageView extends ImageView {
                 new Rect(0, border_TL.getHeight(), border_Line_L.getWidth(), image_height
                         - border_BL.getHeight());
         mCanvas.drawBitmap(border_Line_L, border_src_left, border_dst_left, paint);
-
 
         Bitmap border_TR =
                 BitmapFactory.decodeResource(mContext.getResources(),
@@ -188,16 +192,27 @@ public class BubbleImageView extends ImageView {
 
         paint.setXfermode(null);
 
-        // Set imageView to 'result' bitmap
-        this.setImageBitmap(result);
-
         // Make background transparent
         // this.setBackgroundResource(android.R.color.transparent);
+        return result;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+    }
+
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        Bitmap result = makeMaskImageScaleFit(bm);
+        super.setImageBitmap(result);
+    }
+
+    @Override
+    public void setImageResource(int resId) {
+        Drawable drawable = mContext.getResources().getDrawable(resId);
+        Bitmap result = makeMaskImageScaleFit(((BitmapDrawable) drawable).getBitmap());
+        setImageBitmap(result);
     }
 
 }
