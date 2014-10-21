@@ -14,9 +14,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 
 public class BubbleActivity extends Activity {
-    RelativeLayout mRelativeLayout4;
-    RelativeLayout mRelativeLayout5;
-    RelativeLayout mRelativeLayout6;
+    private BubbleParams mbubbleParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,50 +22,41 @@ public class BubbleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bubble);
 
-        mRelativeLayout5 = (RelativeLayout) findViewById(R.id.image_layout_5);
-        initLeftViews();
+        RelativeLayout mRelativeLayout5 = (RelativeLayout) findViewById(R.id.image_layout_5);
+        initLeftViews(mRelativeLayout5, R.drawable.source_pick_5);
+        initLeftViews((RelativeLayout) findViewById(R.id.image_layout_2), R.drawable.source_pick_2);
 
-        BubbleParams bubbleParams4 = new BubbleParams();
-        LayoutParams params4 =
-                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        initRightViews(bubbleParams4, params4);
+        mbubbleParams = new BubbleParams();
+        initRightParam(mbubbleParams);
 
-        mRelativeLayout4 = (RelativeLayout) findViewById(R.id.image_layout_4);
-        BubbleImageView bubbleImage4 = new BubbleImageView(this);
-        bubbleImage4.setParam(bubbleParams4);
-        bubbleImage4.setImageResource(R.drawable.source_pick_4);
-        mRelativeLayout4.addView(bubbleImage4, params4);
-
-        LayoutParams params6 =
-                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        initRightViews(bubbleParams4, params6);
-        mRelativeLayout6 = (RelativeLayout) findViewById(R.id.image_layout_6);
-        BubbleImageView bubbleImage6 = new BubbleImageView(this);
-        bubbleImage6.setParam(bubbleParams4);
-        bubbleImage6.setImageResource(R.drawable.source_pick_3);
-        mRelativeLayout6.addView(bubbleImage6, params6);
-
-
+        initRightViews((RelativeLayout) findViewById(R.id.image_layout_1), R.drawable.source_pick_1);
+        initRightViews((RelativeLayout) findViewById(R.id.image_layout_4), R.drawable.source_pick_4);
+        initRightViews((RelativeLayout) findViewById(R.id.image_layout_6), R.drawable.source_pick_3);
     }
 
-    private void initLeftViews() {
-        // BubbleParams bubbleParams = new BubbleParams();
-        // bubbleParams.bubble_top_right = R.drawable.left_bubble_top_right;
-
+    private void initRightViews(RelativeLayout layout, int sourcePick4) {
         BubbleImageView bubbleImage = new BubbleImageView(this);
-        // bubbleImage.setParam(bubbleParams);
 
-        bubbleImage.setImageResource(R.drawable.source_pick_5);
+        LayoutParams params =
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        bubbleImage.setParam(mbubbleParams);
+        bubbleImage.setImageResource(sourcePick4);
+
+        layout.addView(bubbleImage, params);
+    }
+
+    private void initLeftViews(RelativeLayout layout, int sourcePick5) {
+        BubbleImageView bubbleImage = new BubbleImageView(this);
+        bubbleImage.setImageResource(sourcePick5);
 
         LayoutParams params =
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        mRelativeLayout5.addView(bubbleImage, params);
-
-
+        layout.addView(bubbleImage, params);
     }
 
-    private void initRightViews(BubbleParams bubbleParams, LayoutParams params) {
+    private void initRightParam(BubbleParams bubbleParams) {
         bubbleParams.bubble_top_right = R.drawable.right_bubble_top_right;
         bubbleParams.bubble_top_left = R.drawable.right_bubble_top_left;
         bubbleParams.bubble_bottom_left = R.drawable.right_bubble_bottom_left;
@@ -85,7 +74,5 @@ public class BubbleActivity extends Activity {
         bubbleParams.border_right = R.drawable.right_border_left;
         bubbleParams.border_top = R.drawable.right_border_topbottom;
         bubbleParams.border_bottom = R.drawable.right_border_topbottom;
-
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
     }
 }

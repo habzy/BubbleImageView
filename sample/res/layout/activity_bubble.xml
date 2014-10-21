@@ -13,11 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <com.habzy.image.bubble.BubbleImageView
+        <!--
+             <com.habzy.image.bubble.BubbleImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:src="@drawable/source_pick_1" />
+        -->
     </RelativeLayout>
 
     <View
@@ -28,12 +30,6 @@
         android:id="@+id/image_layout_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <com.habzy.image.bubble.BubbleImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/source_pick_2" />
     </RelativeLayout>
 
     <View
@@ -54,14 +50,6 @@
         android:id="@+id/image_layout_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <!--
-             <com.habzy.image.bubble.BubbleImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/source_pick_5" />
-        -->
     </RelativeLayout>
 
     <View
