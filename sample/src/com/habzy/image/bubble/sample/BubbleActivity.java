@@ -71,7 +71,7 @@ public class BubbleActivity extends Activity {
         bubbleParams.border_bottom_left = R.drawable.right_border_bottom_left;
         bubbleParams.border_bottom_right = R.drawable.right_border_bottom_right;
         bubbleParams.border_left = R.drawable.right_border_left;
-        bubbleParams.border_right = R.drawable.right_border_left;
+        bubbleParams.border_right = R.drawable.right_border_right;
         bubbleParams.border_top = R.drawable.right_border_topbottom;
         bubbleParams.border_bottom = R.drawable.right_border_topbottom;
     }
